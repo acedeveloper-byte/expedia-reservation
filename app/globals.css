@@ -1,0 +1,425 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* veer css */
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  font-family: "Poppins", sans-serif;
+}
+
+
+body {
+  background-image: url('/images/image-background.jpg');
+
+}
+
+#flight-engine {
+  background-image: url(/images/flight-poster.png);
+  background-size: cover;
+  height: 500px;
+  background-repeat: no-repeat;
+
+}
+
+.mob-toggle {
+  color: #000 !important;
+  border: 1px solid #000 !important;
+  padding: 6px 9px 7px !important;
+}
+
+
+
+
+/* Styling the input container */
+.input-container {
+  position: relative;
+  margin-top: 20px;
+}
+
+/* Input box design */
+.input-container input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, padding-top 0.3s ease;
+}
+
+/* Focus effect for input */
+.input-container input:focus {
+  border-color: #007bff;
+  padding-top: 20px;
+  /* to give space for the label when focused */
+}
+
+/* Floating label styling */
+.input-container label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 16px;
+  color: #000000e6;
+  transition: all 0.1s ease;
+  pointer-events: none;
+}
+
+/* Placeholder styling */
+.input-container input::placeholder {
+  color: #bbb;
+  /* Placeholder color */
+  opacity: 1;
+  /* Ensure placeholder is visible */
+}
+
+/* When input is focused or has value, move the label */
+.input-container input:focus+label,
+.input-container input:not(:placeholder-shown)+label {
+  top: 5px;
+  font-size: 12px;
+  color: #007bff;
+}
+
+/* Optional: Add a subtle shadow to the input on focus */
+.input-container input:focus {
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+/* Border radius and shadow for a sleek, modern look */
+.input-container input {
+  border-radius: 8px;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Styling for the button */
+.search-btn {
+  margin-top: 22px;
+  height: 58px;
+  width: 100px;
+  margin-left: -16px !important;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc6335;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for the button */
+.search-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  /* Adds a slight lifting effect on hover */
+}
+
+/* Focus effect for accessibility */
+.search-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+  /* Adds a glow effect when the button is focused */
+}
+
+
+
+.text-dark {
+  font-weight: 400 !important;
+}
+
+/* Optional: Add padding adjustments for responsiveness */
+@media (max-width: 768px) {
+  .search-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+
+
+.form-layout {
+  padding-top: 15%;
+}
+
+
+
+.explores-layout {
+  width: 80%;
+  border-radius: 4rem;
+  height: 6rem;
+  position: relative;
+  top: -3.5rem;
+  left: -3rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+
+}
+
+
+
+.from-to {
+  font-size: 12px;
+  color: #E59665 !important;
+}
+
+
+.city-text {
+  padding: 0 27px;
+  color: #E59665;
+
+}
+
+
+.explore {
+  color: #E59665;
+  font-size: 32px !important;
+  font-weight: 500 !important;
+}
+
+.populer-domestic {
+  font-weight: 400;
+  font-size: 18px;
+
+}
+
+
+.cards-layout {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px !important;
+  width: 16rem !important;
+  border: 1px solid #E59665 !important;
+  border-radius: 1rem !important;
+
+
+}
+
+.icons-layout {
+  font-size: 41px;
+  color: #706464;
+  position: relative;
+  top: -2rem;
+  left: -2rem;
+}
+
+
+.classess {
+  text-align: center;
+  font-size: 14px;
+  background: #fbf4f4;
+  padding: 13px;
+  margin-top: -3rem;
+  border-radius: 2rem;
+}
+
+
+.background-layout {
+  background-color: #02224B !important;
+}
+
+
+
+
+/* SEARCH ENGINE INPUTS */
+
+
+.airport-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  min-width: 256px;
+  position: relative;
+}
+
+.airport-label {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.airport-city {
+  font-size: 12px;
+  color: #000;
+}
+
+.airport-details {
+  font-size: 14px;
+}
+
+.airport-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* SEARCH ENGINE INPUTS */
+
+
+/* radio button */
+.trip-type-toggle .option {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.trip-type-toggle .option input[type="radio"] {
+  margin-right: 8px;
+  accent-color: #ff4d00;
+  transform: scale(1.2);
+}
+
+.trip-type-toggle .option.active {
+  color: #ff4d00;
+}
+
+
+
+
+.passenger-class-popover {
+  width: 270px;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.passenger-class-popover .btn {
+  width: 48px;
+  height: 32px;
+  padding: 0;
+  font-size: 16px;
+}
+
+.travel-class-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.travel-class-option {
+  background: #f3f3f3;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.travel-class-option.selected {
+  background: linear-gradient(to right, #ff5e00, #ff2c00);
+  color: white;
+}
+
+.done-btn {
+  color: #ff4d00;
+  font-weight: 600;
+}
+
+.date {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  min-width: 100px;
+  position: relative;
+}
+
+
+.search-enigne-container {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+
+
+
+.shadow-sm {
+  padding: 10px;
+}
+
+
+.col-md-2-date {
+  flex: 0 0 auto;
+  width: 11.666667% !important;
+}
+
+.custom-passenger-box {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  min-width: 100px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.custom-passenger-box:hover {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.engine-btn {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  min-width: 100px;
+  position: relative;
+  margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .col-md-2-date {
+    flex: 0 0 auto;
+    width: 49.666667% !important;
+  }
+
+  .search-btn {
+    width: 100.666667% !important;
+    margin-left: -1px !important;
+    height: 45px;
+  }
+
+  #flight-engine {
+    height: 580px;
+  }
+
+  .airport-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    min-width: 223px;
+    position: relative;
+  }
+
+  .search-enigne-container {
+    margin: 0px 10px 0px 10px;
+  }
+}
+
+.input-date {
+  width: 112px !important;
+  border-radius: 8px !important;
+  border: 1px solid #FFFFFF !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  font-weight: 900 !important;
+  font-size: 13px !important;
+}
