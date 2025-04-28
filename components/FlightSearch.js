@@ -1,18 +1,13 @@
-
 'use client'
 import React, { useState, useRef } from 'react';
 import { Container, Col, Row, Overlay, Popover, Button } from 'react-bootstrap';
-import { LiaPlaneDepartureSolid } from "react-icons/lia";
-
 import { PiSeatBold } from "react-icons/pi";
-import AirportCard from './Searchengine/From';
 import SearchDate from './Searchengine/SearchDate';
 import SearchTo from './Searchengine/SearchTo';
 import SearchFrom from './Searchengine/From';
 
 const FlightSearch = () => {
   const [tripType, setTripType] = useState('roundtrip');
-
   const [show, setShow] = useState(false);
   const [passengers, setPassengers] = useState({
     adult: 1,
@@ -30,16 +25,15 @@ const FlightSearch = () => {
   };
 
   const totalPassengers = passengers.adult + passengers.child + passengers.infant;
-
   const handleClose = () => setShow(false);
 
   return (
     <section id="flight-engine">
-      <Container >
+      <Container>
         <div className='form-layout'>
-
-
           <Row className='search-enigne-container'>
+
+            {/* Trip type toggle */}
             <div className="trip-type-toggle d-flex gap-4 align-items-center mb-3">
               <label className={`option ${tripType === 'oneway' ? 'active' : ''}`}>
                 <input
@@ -62,41 +56,44 @@ const FlightSearch = () => {
                 Round Trip
               </label>
             </div>
-            <Col md={3} >
-              <div className="input-container">
-                <SearchFrom
 
-                />
+            {/* From Input */}
+            <Col md={3}>
+              <div className="input-container">
+                <SearchFrom />
               </div>
             </Col>
 
-            <Col md={3} >
+            {/* To Input */}
+            <Col md={3}>
               <div className="input-container">
-                <SearchTo
-
-                />
+                <SearchTo />
               </div>
             </Col>
 
-            <Col md={2} className="col-md-2-date" >
-              <div className="input-container ">
+            {/* Departure Date */}
+            <Col md={2} className="col-md-2-date">
+              <div className="input-container">
                 <SearchDate
                   label="Departure On"
-                    type='date'
-
+                  type="date"
                 />
               </div>
             </Col>
 
-            {/* Conditionally render Return date only if roundtrip */}
-            <Col md={2} sm={4} className="col-md-2-date" >
-              <div className="input-container">
-                <SearchDate
-                  label="Arrival On"
-                   type='date'
-                />
-              </div>
-            </Col>
+            {/* Arrival Date - only for roundtrip */}
+            {tripType === 'roundtrip' && (
+              <Col md={2} sm={4} className="col-md-2-date">
+                <div className="input-container">
+                  <SearchDate
+                    label="Arrival On"
+                    type="date"
+                  />
+                </div>
+              </Col>
+            )}
+
+            {/* Passenger + Class Selector */}
             <Col md={2}>
               <div className="shadow-sm p-2 rounded custom-passenger-box" onClick={() => setShow(!show)} ref={target}>
                 <PiSeatBold />
@@ -107,10 +104,12 @@ const FlightSearch = () => {
                   {travelClass}
                 </div>
 
+                {/* Popover for Passenger & Class Selection */}
                 <Overlay target={target.current} show={show} placement="bottom">
                   <Popover className="passenger-class-popover">
                     <Popover.Body>
-                      {/* Passenger Controls */}
+
+                      {/* Passenger count controls */}
                       {['adult', 'child', 'infant'].map(type => (
                         <div className="d-flex justify-content-between align-items-center mb-2" key={type}>
                           <div>
@@ -127,7 +126,7 @@ const FlightSearch = () => {
                         </div>
                       ))}
 
-                      {/* Travel Class Selection */}
+                      {/* Travel Class options */}
                       <div className="travel-class-grid mt-3">
                         {['Economy', 'Premium Economy', 'Business', 'First'].map(cls => (
                           <div
@@ -140,6 +139,7 @@ const FlightSearch = () => {
                         ))}
                       </div>
 
+                      {/* Done button */}
                       <div className="text-center mt-3">
                         <Button variant="link" className="done-btn" onClick={handleClose}>DONE</Button>
                       </div>
@@ -149,11 +149,13 @@ const FlightSearch = () => {
               </div>
             </Col>
 
-            <Col md={1}  className=''>
+            {/* Search Button */}
+            <Col md={1}>
               <button className="search-btn">
                 Search
               </button>
             </Col>
+
           </Row>
         </div>
       </Container>

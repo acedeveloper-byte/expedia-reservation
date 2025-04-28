@@ -103,7 +103,7 @@ body {
 /* Styling for the button */
 .search-btn {
   margin-top: 22px;
-  height: 58px;
+  height: 82px;
   width: 100px;
   margin-left: -16px !important;
   padding: 10px;
@@ -416,10 +416,23 @@ body {
 }
 
 .input-date {
-  width: 112px !important;
+  width: 90px !important;
   border-radius: 8px !important;
   border: 1px solid #FFFFFF !important;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-  font-weight: 900 !important;
-  font-size: 13px !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+}
+
+.react-datepicker {
+  font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+  font-size: 0.8rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #aeaeae;
+  border-radius: 0.3rem;
+  display: inline-block;
+  position: absolute !important;
+  line-height: initial;
+  z-index: 105 !important;
 }
