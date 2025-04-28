@@ -4,9 +4,23 @@ import { Container, Col, Row, Overlay, Popover, Button } from 'react-bootstrap';
 import { PiSeatBold } from "react-icons/pi";
 import SearchDate from './Searchengine/SearchDate';
 import SearchTo from './Searchengine/SearchTo';
-import SearchFrom from './Searchengine/From';
+import SearchFrom from './Searchengine/SearchFrom';
 
 const FlightSearch = () => {
+
+  const [searchengineData, setSearchenginedata] = useState({
+    origin: "DEL",
+    destination: "GYD",
+    departureDate: "2025-05-13",
+    returnDate: "2025-05-27",
+    adults: 1,
+    children: 0,
+    infants: 0,
+    currencyCode: "INR",
+    tripType: 2, // 1 for oneway, 2 for roundtrip
+    cabin: "ECONOMY"
+  });
+
   const [tripType, setTripType] = useState('roundtrip');
   const [show, setShow] = useState(false);
   const [passengers, setPassengers] = useState({
@@ -14,18 +28,61 @@ const FlightSearch = () => {
     child: 0,
     infant: 0,
   });
-  const [travelClass, setTravelClass] = useState('First');
+  const [travelClass, setTravelClass] = useState('ECONOMY');
   const target = useRef(null);
 
   const handleCountChange = (type, delta) => {
-    setPassengers(prev => ({
+    setPassengers(prev => {
+      const updated = {
+        ...prev,
+        [type]: Math.max(0, prev[type] + delta)
+      };
+      updatePassengerData(updated);
+      return updated;
+    });
+  };
+
+  const updatePassengerData = (updated) => {
+    setSearchenginedata(prev => ({
       ...prev,
-      [type]: Math.max(0, prev[type] + delta)
+      adults: updated.adult,
+      children: updated.child,
+      infants: updated.infant
+    }));
+  };
+
+  const handleTripTypeChange = (type) => {
+    setTripType(type);
+    setSearchenginedata(prev => ({
+      ...prev,
+      tripType: type === 'oneway' ? 1 : 2
+    }));
+  };
+
+  const handleSearchFieldChange = (field, value) => {
+ 
+
+    setSearchenginedata(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleClassChange = (cls) => {
+    setTravelClass(cls);
+    setSearchenginedata(prev => ({
+      ...prev,
+      cabin: cls.toUpperCase().replace(' ', '_') // ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST
     }));
   };
 
   const totalPassengers = passengers.adult + passengers.child + passengers.infant;
   const handleClose = () => setShow(false);
+
+  const handleSubmit = () => {
+    console.log('Final Search Data:', searchengineData);
+    // Here you can call your API using searchengineData
+  };
 
   return (
     <section id="flight-engine">
@@ -41,7 +98,7 @@ const FlightSearch = () => {
                   name="tripType"
                   value="oneway"
                   checked={tripType === 'oneway'}
-                  onChange={() => setTripType('oneway')}
+                  onChange={() => handleTripTypeChange('oneway')}
                 />
                 One Way
               </label>
@@ -51,7 +108,7 @@ const FlightSearch = () => {
                   name="tripType"
                   value="roundtrip"
                   checked={tripType === 'roundtrip'}
-                  onChange={() => setTripType('roundtrip')}
+                  onChange={() => handleTripTypeChange('roundtrip')}
                 />
                 Round Trip
               </label>
@@ -60,14 +117,19 @@ const FlightSearch = () => {
             {/* From Input */}
             <Col md={3}>
               <div className="input-container">
-                <SearchFrom />
+                <SearchFrom
+                  onChange={(value) => handleSearchFieldChange('origin', value.airportCode)}
+                />
               </div>
             </Col>
 
             {/* To Input */}
             <Col md={3}>
               <div className="input-container">
-                <SearchTo />
+                <SearchTo
+                  onChange={(value) => handleSearchFieldChange('destination', value.airportCode)}
+                  onClick={() => handleAirportSelect("to", airport)}
+                />
               </div>
             </Col>
 
@@ -77,17 +139,19 @@ const FlightSearch = () => {
                 <SearchDate
                   label="Departure On"
                   type="date"
+                  onChange={(value) => handleSearchFieldChange('departureDate', value)}
                 />
               </div>
             </Col>
 
-            {/* Arrival Date - only for roundtrip */}
+            {/* Arrival Date - only if Roundtrip */}
             {tripType === 'roundtrip' && (
               <Col md={2} sm={4} className="col-md-2-date">
                 <div className="input-container">
                   <SearchDate
                     label="Arrival On"
                     type="date"
+                    onChange={(value) => handleSearchFieldChange('returnDate', value)}
                   />
                 </div>
               </Col>
@@ -104,18 +168,16 @@ const FlightSearch = () => {
                   {travelClass}
                 </div>
 
-                {/* Popover for Passenger & Class Selection */}
                 <Overlay target={target.current} show={show} placement="bottom">
                   <Popover className="passenger-class-popover">
                     <Popover.Body>
 
-                      {/* Passenger count controls */}
                       {['adult', 'child', 'infant'].map(type => (
                         <div className="d-flex justify-content-between align-items-center mb-2" key={type}>
                           <div>
                             <strong className="text-capitalize">{type}</strong>
                             <div className="small text-muted">
-                              ({type === 'adult' ? '12+ years' : type === 'child' ? '0–12 years' : '0–2 years'})
+                              ({type === 'adult' ? '12+ years' : type === 'child' ? '2–12 years' : '0–2 years'})
                             </div>
                           </div>
                           <div className="d-flex align-items-center">
@@ -132,7 +194,7 @@ const FlightSearch = () => {
                           <div
                             key={cls}
                             className={`travel-class-option ${travelClass === cls ? 'selected' : ''}`}
-                            onClick={() => setTravelClass(cls)}
+                            onClick={() => handleClassChange(cls)}
                           >
                             {cls}
                           </div>
@@ -151,7 +213,7 @@ const FlightSearch = () => {
 
             {/* Search Button */}
             <Col md={1}>
-              <button className="search-btn">
+              <button className="search-btn" onClick={handleSubmit}>
                 Search
               </button>
             </Col>

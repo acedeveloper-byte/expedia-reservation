@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css"; // Import CSS for the date 
 
 
 
-const SearchDate = ({ label }) => {
+const SearchDate = ({ label , onChange }) => {
   const [selected, setSelected] = useState(false);
   const [currDate, setCurrDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false); // Track calendar visibility
@@ -15,6 +15,7 @@ const SearchDate = ({ label }) => {
 
 
   const handleDateChange = (date) => {
+    onChange(date)
     setCurrDate(date);  // Update the current selected date
     setShowCalendar(false); // Hide calendar after selecting a date
   };
@@ -35,6 +36,7 @@ const SearchDate = ({ label }) => {
               placeholder="Select a date"
               readOnly
             className='input-date'
+            
             />
           </div>
 
