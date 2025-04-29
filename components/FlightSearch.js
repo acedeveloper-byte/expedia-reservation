@@ -5,6 +5,10 @@ import { PiSeatBold } from "react-icons/pi";
 import SearchDate from './Searchengine/SearchDate';
 import SearchTo from './Searchengine/SearchTo';
 import SearchFrom from './Searchengine/SearchFrom';
+import moment from 'moment';
+import { GetflightResult } from '@/utils/apicalls/GetflightResult';
+import Link from 'next/link';
+
 
 const FlightSearch = () => {
 
@@ -20,6 +24,8 @@ const FlightSearch = () => {
     tripType: 2, // 1 for oneway, 2 for roundtrip
     cabin: "ECONOMY"
   });
+
+  const [ results , setResults] = useState([])
 
   const [tripType, setTripType] = useState('roundtrip');
   const [show, setShow] = useState(false);
@@ -52,6 +58,7 @@ const FlightSearch = () => {
   };
 
   const handleTripTypeChange = (type) => {
+    console.log("type:" , type)
     setTripType(type);
     setSearchenginedata(prev => ({
       ...prev,
@@ -60,12 +67,20 @@ const FlightSearch = () => {
   };
 
   const handleSearchFieldChange = (field, value) => {
- 
+    if (field === "departureDate" || field === "returnDate") {
 
-    setSearchenginedata(prev => ({
-      ...prev,
-      [field]: value
-    }));
+      setSearchenginedata(prev => ({
+        ...prev,
+        [field]: moment(value).format('YYYY-MM-DD')
+      }));
+    } else {
+      setSearchenginedata(prev => ({
+        ...prev,
+        [field]: value
+      }));
+
+    }
+
   };
 
   const handleClassChange = (cls) => {
@@ -80,7 +95,8 @@ const FlightSearch = () => {
   const handleClose = () => setShow(false);
 
   const handleSubmit = () => {
-    console.log('Final Search Data:', searchengineData);
+    
+    GetflightResult(searchengineData , setResults)
     // Here you can call your API using searchengineData
   };
 
@@ -89,6 +105,7 @@ const FlightSearch = () => {
       <Container>
         <div className='form-layout'>
           <Row className='search-enigne-container'>
+
 
             {/* Trip type toggle */}
             <div className="trip-type-toggle d-flex gap-4 align-items-center mb-3">
@@ -213,9 +230,9 @@ const FlightSearch = () => {
 
             {/* Search Button */}
             <Col md={1}>
-              <button className="search-btn" onClick={handleSubmit}>
+              <Link className="search-btn" href={`/result/meta/${JSON.stringify(searchengineData)}`} onClick={handleSubmit}>
                 Search
-              </button>
+              </Link>
             </Col>
 
           </Row>

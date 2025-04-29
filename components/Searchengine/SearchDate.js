@@ -45,7 +45,8 @@ const SearchDate = ({ label , onChange }) => {
               selected={currDate}
               onChange={handleDateChange}
               inline
-              dateFormat="dd MMM yyyy"
+              value={moment(currDate).format("DD-MMM-YYYY")}  // Display selected date
+
               minDate={new Date()}  // Prevent selecting past dates
               highlightDates={[new Date()]}  // Highlight today's date
             />
