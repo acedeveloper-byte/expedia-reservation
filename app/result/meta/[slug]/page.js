@@ -11,11 +11,14 @@ const Page = ({ params }) => {
   const [flightResults, setFlightResults] = useState([]);
   const [loading, setLoading] = useState(true);
 const  [fare , setfare ] = useState({})
+
+const  [data , setData] = useState({})
   useEffect(() => {
     const fetchFlightData = async () => {
       try {
         const decoded = decodeURIComponent(params.slug);
         const parsed = JSON.parse(decoded);
+        setData(parsed)
         const response = await axios.post(
           "https://flight-api.acedigitalsolution.com/flight-offers/v1/get-flight-searches",
           parsed,
@@ -76,7 +79,7 @@ const  [fare , setfare ] = useState({})
           <div className="col-lg-9">
             <div className="section-header d-flex justify-content-between">
               <div>
-                DEL → BOM &nbsp;&nbsp;Fri 02 May 2025 - Fri 09 May 2025
+                {data.origin} → {data.destination} &nbsp;&nbsp;{data.departureDate} - {data.returnDate}
               </div>
               <div>
                 <a href="#" className="text-white text-decoration-none me-3">Lowest to Higher</a>
@@ -107,7 +110,7 @@ const  [fare , setfare ] = useState({})
                             <div className="fw-bold">{itm.fromAirport} - {itm.toAirport}</div>
                             <div className="text-muted small">{moment(itm.depDate).format("hh:mm A")} -   {moment(itm.reachDate).format("hh:mm A")}</div>
                             <div className="text-muted small">{moment(itm.depDate).format("ddd MMMM Do")}  - {moment(itm.reachDate).format("ddd MMMM Do")}  </div>
-                            <div className="text-muted small">{airportdata.find(( itex) =>  itex.airportCode === itm.fromAirport).airportName} - {airportdata.find(( itex) =>  itex.airportCode === itm.toAirport).airportName}</div>
+                            <div className="text-muted small">{airportdata.find(( itex) =>  itex.airportCode === data.origin).airportName} - {airportdata.find(( itex) =>  itex.airportCode === data.destination).airportName}</div>
               
                             {/* <div className="text-muted small">{itm.fromAirport} - {itmtoAirport}</div> */}
                           </div>
