@@ -17,7 +17,7 @@ const  [fare , setfare ] = useState({})
         const decoded = decodeURIComponent(params.slug);
         const parsed = JSON.parse(decoded);
         const response = await axios.post(
-          "http://flight-api.acedigitalsolution.com/flight-offers/v1/get-flight-searches",
+          "https://flight-api.acedigitalsolution.com/flight-offers/v1/get-flight-searches",
           parsed,
           {
             headers: {
@@ -94,7 +94,7 @@ const  [fare , setfare ] = useState({})
                       <div className="card flight-card shadow-sm border mb-3" key={idx}>
                         <div className="d-flex justify-content-between p-3 flight-segment">
                           <div className="d-flex">
-                            <img src={`http://flight-api.acedigitalsolution.com/resources/airline-logo/${itm.airline}.png`}
+                            <img src={`https://flight-api.acedigitalsolution.com/resources/airline-logo/${itm.airline}.png`}
                               alt="Air India" width="40" className="me-3" />
                             <div>
                               <div className="text-muted small">{moment(itm.depDate).format("dddd MMMM Do")} - <span className="fw-bold">{moment(itm.depDate).format("hh:mm A")}</span></div>
