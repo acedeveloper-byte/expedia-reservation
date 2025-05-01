@@ -1,64 +1,40 @@
 import moment from 'moment';
-import React, { useState } from 'react';
-import { FormControl } from 'react-bootstrap';
+import React, { useRef, useState } from 'react';
 import { IoCalendarNumber } from "react-icons/io5";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Import CSS for the date picker
+import "react-datepicker/dist/react-datepicker.css";
 
-
-
-const SearchDate = ({ label , onChange }) => {
-  const [selected, setSelected] = useState(false);
+const SearchDate = ({ label, onChange }) => {
   const [currDate, setCurrDate] = useState(new Date());
-  const [showCalendar, setShowCalendar] = useState(false); // Track calendar visibility
-
-
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const handleDateChange = (date) => {
-    onChange(date)
-    setCurrDate(date);  // Update the current selected date
-    setShowCalendar(false); // Hide calendar after selecting a date
-  };
-
-  const toggleCalendar = () => {
-    setShowCalendar(!showCalendar); // Toggle calendar visibility
+    setCurrDate(date);
+    onChange(date);
+    setShowCalendar(false); // Hide calendar after selection
   };
 
   return (
     <div className="shadow-sm date">
-      {!selected ? (
-        <>
-          <IoCalendarNumber />
-          <div className="date-input-wrapper" onClick={toggleCalendar}>
-            <FormControl
-              type="text"
-              value={moment(currDate).format("DD-MMM-YYYY")}  // Display selected date
-              placeholder="Select a date"
-              readOnly
-            className='input-date'
-            
-            />
-          </div>
+      <div className="airport-result pointer-cursor" onClick={() => setShowCalendar(!showCalendar)}>
+        <IoCalendarNumber />
+        <div className="airport-city fw-bold">
+          {moment(currDate).format("Do")} {moment(currDate).format("MMM YYYY")}
+        </div>
+        <div className="airport-details text-muted">
+          {moment(currDate).format("dddd")}
+        </div>
+      </div>
 
-          {showCalendar && (
-            <DatePicker
-              selected={currDate}
-              onChange={handleDateChange}
-              inline
-              value={moment(currDate).format("DD-MMM-YYYY")}  // Display selected date
-
-              minDate={new Date()}  // Prevent selecting past dates
-              highlightDates={[new Date()]}  // Highlight today's date
-            />
-          )}
-        </>
-      ) : (
-        <div className="airport-result">
-          <IoCalendarNumber />
-          <div className="airport-city fw-bold">{moment(currDate).format("Do")} {moment(currDate).format("MMM'YYYY")}</div>
-          <div className="airport-details text-muted">
-            {moment(currDate).format("dddd")}
-          </div>
+      {showCalendar && (
+        <div className="calendar-container">
+          <DatePicker
+            selected={currDate}
+            onChange={handleDateChange}
+            inline
+            minDate={new Date()}
+            highlightDates={[new Date()]}
+          />
         </div>
       )}
     </div>

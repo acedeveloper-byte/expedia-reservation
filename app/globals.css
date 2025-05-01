@@ -442,3 +442,28 @@ body {
       height: 684px !important;
   }
 }
+
+.sidebar { width: 280px; background: white; border-radius: 8px; padding: 20px; }
+.flight-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.filter-label { font-weight: bold; margin-bottom: 8px; display: block; }
+.search-panel { background-color: #0c1c45; padding: 20px; border-radius: 8px; margin-bottom: 20px; color: white; }
+.search-panel input, .search-panel select { height: 48px; border-radius: 6px; }
+.btn-search { height: 48px; background-color: #001d57; color: white; border: none; border-radius: 6px; }
+.btn-search:hover { background-color: #00276b; }
+.section-header { background: #0c1c45; color: white; padding: 10px 20px; border-radius: 6px; margin-bottom: 10px; }
+.btn-select-flight { background-color: #001d57; color: white; border-radius: 6px; }
+
+
+.flight-segment {
+  align-items: flex-start;
+}
+
+.flight-card img {
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.flight-card .btn {
+  min-width: 120px;
+  font-weight: 500;
+}

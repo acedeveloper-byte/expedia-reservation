@@ -1,6 +1,6 @@
-import { LiaPlaneDepartureSolid } from "react-icons/lia";
+import { LiaPlaneArrivalSolid } from "react-icons/lia";
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FormControl, ListGroup } from 'react-bootstrap';
 import airportData from '../../utils/Jsons/airportdata.json'
 
@@ -13,6 +13,7 @@ import airportData from '../../utils/Jsons/airportdata.json'
 // ];
 
 const SearchTo = ({ onChange}) => {
+  const inputRef =  useRef()
   const [query, setQuery] = useState('');
   const [selected, setSelected] = useState( {
     "airportCode": "DCA",
@@ -41,6 +42,13 @@ const SearchTo = ({ onChange}) => {
     onChange(airport)
   };
 
+    // Focus input when selected is null
+    useEffect(() => {
+      if (!selected && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, [selected]);
+
   return (
     <>
     <div>
@@ -48,13 +56,14 @@ const SearchTo = ({ onChange}) => {
       {!selected ? (
         <>
         <div className="shadow-sm pointer-cursor">
-        <LiaPlaneDepartureSolid  size={30}/>
+        <LiaPlaneArrivalSolid  size={30}/>
           <FormControl
+          ref={inputRef}
             placeholder="Search city or airport"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value) 
-              , onChange(e)}}
+              ,onChange(e)}}
 
             />
             </div>
@@ -76,7 +85,7 @@ const SearchTo = ({ onChange}) => {
         </>
       ) : (
         <div className="pointer-cursor airport-card" onClick={() =>setSelected(null)}>
-   <LiaPlaneDepartureSolid  size={30}/>
+   <LiaPlaneArrivalSolid  size={30}/>
         <div className="airport-result">
           <div className="airport-city fw-bold">{selected.cityName}</div>
           <div className="airport-details text-muted">

@@ -58,7 +58,6 @@ const FlightSearch = () => {
   };
 
   const handleTripTypeChange = (type) => {
-    console.log("type:" , type)
     setTripType(type);
     setSearchenginedata(prev => ({
       ...prev,
@@ -184,7 +183,7 @@ const FlightSearch = () => {
                 <div className="text-muted" style={{ fontSize: '14px' }}>
                   {travelClass}
                 </div>
-
+  </div>
                 <Overlay target={target.current} show={show} placement="bottom">
                   <Popover className="passenger-class-popover">
                     <Popover.Body>
@@ -219,13 +218,12 @@ const FlightSearch = () => {
                       </div>
 
                       {/* Done button */}
-                      <div className="text-center mt-3">
-                        <Button variant="link" className="done-btn" onClick={handleClose}>DONE</Button>
+                      <div className="text-center mt-3 selected" onClick={() => setShow(false)}>
+                        <Button variant="link" className="done-btn " >DONE</Button>
                       </div>
                     </Popover.Body>
                   </Popover>
                 </Overlay>
-              </div>
             </Col>
 
             {/* Search Button */}
