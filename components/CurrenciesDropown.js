@@ -9,16 +9,16 @@ import { TbCurrencyTaka, TbCurrencyRiyal } from 'react-icons/tb';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 
 const currencies = [
-  {  name: 'Indian Rupee', Icon: FaRupeeSign },
-  {  name: 'US Dollar', Icon: FaDollarSign },
-  {  name: 'British Pound', Icon: FaPoundSign },
-  {  name: 'Australian Dollar', Icon: GiTwoCoins },
-  {  name: 'Emirates Dirham', Icon: RiMoneyDollarCircleLine },
-  {  name: 'Euro', Icon: FaEuroSign },
-  {  name: 'Canadian Dollar', Icon: MdAttachMoney },
-  {  name: 'Bangladeshi Taka', Icon: TbCurrencyTaka },
-  {  name: 'Philippine Peso', Icon: BsCurrencyExchange },
-  {  name: 'Saudi Riyal', Icon: TbCurrencyRiyal },
+  { code: 'INR', name: 'Indian Rupee', Icon: FaRupeeSign },
+  { code: 'USD', name: 'US Dollar', Icon: FaDollarSign },
+  { code: 'GBP', name: 'British Pound', Icon: FaPoundSign },
+  { code: 'AUD', name: 'Australian Dollar', Icon: GiTwoCoins },
+  { code: 'AED', name: 'Emirates Dirham', Icon: RiMoneyDollarCircleLine },
+  { code: 'EUR', name: 'Euro', Icon: FaEuroSign },
+  { code: 'CAD', name: 'Canadian Dollar', Icon: MdAttachMoney },
+  { code: 'BDT', name: 'Bangladeshi Taka', Icon: TbCurrencyTaka },
+  { code: 'PHP', name: 'Philippine Peso', Icon: BsCurrencyExchange },
+  { code: 'SAR', name: 'Saudi Riyal', Icon: TbCurrencyRiyal },
 ];
 
 const CurrenciesDropdown = () => {
@@ -29,10 +29,10 @@ const CurrenciesDropdown = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-light ">
+    <div className="d-flex justify-content-center align-items-center bg-light">
       <div className="dropdown">
         <button
-          className="btn custom-btn  button-layout"
+          className="btn custom-btn button-layout"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -40,11 +40,10 @@ const CurrenciesDropdown = () => {
           {selected ? (
             <span className="d-flex align-items-center gap-2">
               <selected.Icon size={20} />
-              {selected.code}
-              {selected.name}
+              <span>{selected.code} - {selected.name}</span>
             </span>
           ) : (
-            'Select Currencies'
+            'Select Currency'
           )}
         </button>
 
@@ -68,11 +67,8 @@ const CurrenciesDropdown = () => {
           </div>
         </ul>
       </div>
-
     </div>
   );
 };
 
 export default CurrenciesDropdown;
-
-
