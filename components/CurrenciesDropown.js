@@ -1,8 +1,6 @@
-'use client'
 import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/app/globals.css'
 
 // React icons
@@ -74,6 +72,31 @@ const CurrenciesDropdown = () => {
         </ul>
       </div>
 
+      <style jsx>{`
+ 
+
+  .custom-dropdown {
+    min-width: 420px;
+    border-radius: 12px;
+  }
+
+  .card-item {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .card-item:hover {
+    background-color: #f9f9f9;
+  }
+
+  .active-item {
+    background-color: #fff4e5 !important;
+    border-color: #ffc107 !important;
+    color: #d35400 !important;
+    padding: 4px !important;
+  }
+`}</style>
     </div>
   );
 };
