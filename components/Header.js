@@ -34,7 +34,7 @@ const Header = () => {
             Book Now
           </a> */}
 
-        {/* <CurrenciesDropown/> */}
+        <CurrenciesDropown/>
         </div>
 
         {/* Hamburger Icon (Mobile Only) */}
