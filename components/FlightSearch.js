@@ -15,26 +15,25 @@ const FlightSearch = () => {
   const [searchengineData, setSearchenginedata] = useState({
     origin: "DEL",
     destination: "GYD",
-    departureDate: "2025-05-13",
-    returnDate: "2025-05-27",
+    departureDate: moment().format("YYYY-MM-DD"),
+    returnDate: moment().format("YYYY-MM-DD"),
     adults: 1,
     children: 0,
     infants: 0,
     currencyCode: "INR",
-    tripType: 2, // 1 for oneway, 2 for roundtrip
+    tripType: 1,
     cabin: "ECONOMY"
   });
 
-  const [ results , setResults] = useState([])
 
-  const [tripType, setTripType] = useState('roundtrip');
+  const [tripType, setTripType] = useState('oneway');
   const [show, setShow] = useState(false);
   const [passengers, setPassengers] = useState({
     adult: 1,
     child: 0,
     infant: 0,
   });
-  const [travelClass, setTravelClass] = useState('ECONOMY');
+  const [travelClass, setTravelClass] = useState('Economy');
   const target = useRef(null);
 
   const handleCountChange = (type, delta) => {
@@ -66,6 +65,8 @@ const FlightSearch = () => {
   };
 
   const handleSearchFieldChange = (field, value) => {
+    var trip = tripType === 'oneway' ? 1 : 2
+
     if (field === "departureDate" || field === "returnDate") {
 
       setSearchenginedata(prev => ({
@@ -73,17 +74,21 @@ const FlightSearch = () => {
         [field]: moment(value).format('YYYY-MM-DD')
       }));
     } else {
-      setSearchenginedata(prev => ({
-        ...prev,
-        [field]: value
-      }));
+
+        setSearchenginedata(prev => ({
+          ...prev,
+          [field]: value
+        }));
+
+
 
     }
 
   };
 
   const handleClassChange = (cls) => {
-    setTravelClass(cls);
+        setTravelClass(cls);
+
     setSearchenginedata(prev => ({
       ...prev,
       cabin: cls.toUpperCase().replace(' ', '_') // ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST
@@ -91,15 +96,13 @@ const FlightSearch = () => {
   };
 
   const totalPassengers = passengers.adult + passengers.child + passengers.infant;
-  const handleClose = () => setShow(false);
-
+  console.log("searchengineData::", searchengineData)
 
   return (
     <section id="flight-engine">
       <Container>
         <div className='form-layout'>
           <Row className='search-enigne-container'>
-
 
             {/* Trip type toggle */}
             <div className="trip-type-toggle d-flex gap-4 align-items-center mb-3">
@@ -156,17 +159,20 @@ const FlightSearch = () => {
             </Col>
 
             {/* Arrival Date - only if Roundtrip */}
-            {tripType === 'roundtrip' && (
-              <Col md={2} sm={4} className="col-md-2-date">
-                <div className="input-container">
+            <Col md={2} sm={4} className="col-md-2-date">
+              <div className="input-container">
+                {tripType !== 'roundtrip' ?
+                  <div className='shadow-sm date text-center' onClick={() => handleTripTypeChange('roundtrip')}>
+                    <p style={{ fontSize: "13px", margin: "4px" }}>Book a round trip to save more</p>
+                  </div> :
                   <SearchDate
                     label="Arrival On"
                     type="date"
                     onChange={(value) => handleSearchFieldChange('returnDate', value)}
                   />
-                </div>
-              </Col>
-            )}
+                }
+              </div>
+            </Col>
 
             {/* Passenger + Class Selector */}
             <Col md={2}>
@@ -178,54 +184,57 @@ const FlightSearch = () => {
                 <div className="text-muted" style={{ fontSize: '14px' }}>
                   {travelClass}
                 </div>
-  </div>
-                <Overlay target={target.current} show={show} placement="bottom">
-                  <Popover className="passenger-class-popover">
-                    <Popover.Body>
+              </div>
+              <Overlay target={target.current} show={show} placement="bottom">
+                <Popover className="passenger-class-popover">
+                  <Popover.Body>
 
-                      {['adult', 'child', 'infant'].map(type => (
-                        <div className="d-flex justify-content-between align-items-center mb-2" key={type}>
-                          <div>
-                            <strong className="text-capitalize">{type}</strong>
-                            <div className="small text-muted">
-                              ({type === 'adult' ? '12+ years' : type === 'child' ? '2–12 years' : '0–2 years'})
-                            </div>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <Button variant="light" onClick={() => handleCountChange(type, -1)}>-</Button>
-                            <span className="mx-2">{passengers[type]}</span>
-                            <Button variant="light" onClick={() => handleCountChange(type, 1)}>+</Button>
+                    {['adult', 'child', 'infant'].map(type => (
+                      <div className="d-flex justify-content-between align-items-center mb-2" key={type}>
+                        <div>
+                          <strong className="text-capitalize">{type}</strong>
+                          <div className="small text-muted">
+                            ({type === 'adult' ? '12+ years' : type === 'child' ? '2–12 years' : '0–2 years'})
                           </div>
                         </div>
+                        <div className="d-flex align-items-center">
+                          <Button variant="light" onClick={() => handleCountChange(type, -1)}>-</Button>
+                          <span className="mx-2">{passengers[type]}</span>
+                          <Button variant="light" onClick={() => handleCountChange(type, 1)}>+</Button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Travel Class options */}
+                    <div className="travel-class-grid mt-3">
+                      {['Economy', 'Premium Economy', 'Business', 'First'].map(cls => (
+                        <div
+                          key={cls}
+                          className={`travel-class-option ${travelClass === cls ? 'selected' : ''}`}
+                          onClick={() => handleClassChange(cls)}
+                        >
+                          {cls}
+                        </div>
                       ))}
+                    </div>
 
-                      {/* Travel Class options */}
-                      <div className="travel-class-grid mt-3">
-                        {['Economy', 'Premium Economy', 'Business', 'First'].map(cls => (
-                          <div
-                            key={cls}
-                            className={`travel-class-option ${travelClass === cls ? 'selected' : ''}`}
-                            onClick={() => handleClassChange(cls)}
-                          >
-                            {cls}
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Done button */}
-                      <div className="text-center mt-3 selected" onClick={() => setShow(false)}>
-                        <Button variant="link" className="done-btn " >DONE</Button>
-                      </div>
-                    </Popover.Body>
-                  </Popover>
-                </Overlay>
+                    {/* Done button */}
+                    <div className="text-center mt-3 selected" onClick={() => setShow(false)}>
+                      <Button variant="link" className="done-btn " >DONE</Button>
+                    </div>
+                  </Popover.Body>
+                </Popover>
+              </Overlay>
             </Col>
 
             {/* Search Button */}
-            <Col md={1}>
-              <Link className="search-btn" href={`/result/meta/${JSON.stringify(searchengineData)}`} >
-                Search
-              </Link>
+            <Col md={1} sm={3}>
+              <div className="search-btn">
+
+                <Link href={`/result/meta/${JSON.stringify(searchengineData)}`} className='text-decoration-none text-white' >
+                  Search
+                </Link>
+              </div>
             </Col>
 
           </Row>
