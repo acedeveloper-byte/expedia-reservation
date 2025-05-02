@@ -2,7 +2,9 @@
 import React, { useState } from 'react'
 import "../app/globals.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars, FaTimes, FaIndianRupeeSign } from 'react-icons/fa'
+import CurrenciesDropown from './CurrenciesDropown'
+
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,9 +30,11 @@ const Header = () => {
           </nav>
 
           {/* Call to Action Button */}
-          <a href="#" className="btn btn-primary rounded-pill px-4 fw-semibold">
+          {/* <a href="#" className="btn btn-primary rounded-pill px-4 fw-semibold">
             Book Now
-          </a>
+          </a> */}
+
+        <CurrenciesDropown/>
         </div>
 
         {/* Hamburger Icon (Mobile Only) */}
