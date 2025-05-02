@@ -79,7 +79,7 @@ const Page = ({ params }) => {
                           {/* Airline and flight info */}
                           <div className="col-12 col-md-4 d-flex align-items-start">
                             <img
-                              src={`https://flight-api.acedigitalsolution.com/resources/airline-logo/${itm.airline}.png`}
+                              sr={`https://flight-api.acedigitalsolution.com/resources/airline-logo/${itm.airline}.png`}
                               alt={itm.airline}
                               width="40"
                               className="me-3"
