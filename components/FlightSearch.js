@@ -93,11 +93,6 @@ const FlightSearch = () => {
   const totalPassengers = passengers.adult + passengers.child + passengers.infant;
   const handleClose = () => setShow(false);
 
-  const handleSubmit = () => {
-    
-    GetflightResult(searchengineData , setResults)
-    // Here you can call your API using searchengineData
-  };
 
   return (
     <section id="flight-engine">
@@ -228,7 +223,7 @@ const FlightSearch = () => {
 
             {/* Search Button */}
             <Col md={1}>
-              <Link className="search-btn" href={`/result/meta/${JSON.stringify(searchengineData)}`} onClick={handleSubmit}>
+              <Link className="search-btn" href={`/result/meta/${JSON.stringify(searchengineData)}`} >
                 Search
               </Link>
             </Col>
