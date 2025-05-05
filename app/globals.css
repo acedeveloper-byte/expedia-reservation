@@ -502,3 +502,20 @@ a {
   color: #d35400 !important;
   padding: 4px !important;
 }
+
+
+@media (max-width: 768px) {
+.cards-layout{
+  width: 100% !important;
+}
+
+.explores-layout {
+  width: 49%;
+  border-radius: 4rem;
+  height: 5rem;
+  position: relative;
+  top: -5.5rem;
+  left: 4rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+  
+}
